@@ -1,18 +1,19 @@
 # Code Runner
 
-A React application that integrates with Monaco Editor to provide a multi-language code execution environment with a clean, tabbed interface.
+A React application that integrates with Monaco Editor to provide a multi-language code execution environment with a Cursor IDE-like split-screen interface.
 
 ## Features
 
-- ✨ Monaco Editor integration for a VS Code-like editing experience
-- 🚀 Multi-language support: JavaScript, TypeScript, Python, Java, C++, and more
-- ▶️ Execute code with a single click (browser execution for JS/TS, JDoodle API for other languages)
-- 📊 Real-time output display with console.log, console.error, etc. support
-- 🎨 Clean, modern UI with Tailwind CSS
-- 📋 Question, Editor, and Output tabs
-- 📱 Responsive design that works on mobile devices
-- ⚠️ Error handling with clear error messages
-- ⏱️ Execution statistics (CPU time, memory usage) for JDoodle languages
+- ✨ **Monaco Editor** integration for a VS Code-like editing experience
+- 🚀 **Multi-language support**: JavaScript, TypeScript, Python, Java, C++, and more
+- ▶️ **Execute code** with a single click (browser execution for JS/TS, JDoodle API for other languages)
+- 📊 **Real-time output** display with console.log, console.error, etc. support
+- 🎨 **Modern UI** with Tailwind CSS
+- 📋 **Split-screen layout**: Question, Editor, and Output panels visible simultaneously (like Cursor IDE)
+- 🔧 **Resizable panels**: Drag dividers to adjust panel widths
+- 📱 **Responsive design** that works on mobile devices
+- ⚠️ **Error handling** with clear error messages
+- ⏱️ **Execution statistics** (CPU time, memory usage) for JDoodle languages
 
 ## Prerequisites
 
@@ -54,15 +55,35 @@ A React application that integrates with Monaco Editor to provide a multi-langua
 
 ```
 interview-app/
-├── index.html          # HTML entry point
-├── package.json        # Dependencies and scripts
-├── vite.config.js      # Vite configuration
-├── README.md          # This file
+├── index.html              # HTML entry point
+├── package.json            # Dependencies and scripts
+├── vite.config.js          # Vite configuration (includes JDoodle proxy)
+├── tailwind.config.js      # Tailwind CSS configuration
+├── README.md               # This file
 └── src/
-    ├── main.jsx       # React entry point
-    ├── App.jsx        # Main application component
-    ├── App.css        # Application styles
-    └── index.css      # Global styles
+    ├── main.jsx            # React entry point
+    ├── App.jsx             # Main application component
+    ├── index.css            # Global styles (Tailwind CSS)
+    │
+    ├── components/         # React components
+    │   ├── Header.jsx      # Header with language selector and buttons
+    │   ├── QuestionPanel.jsx
+    │   ├── EditorPanel.jsx
+    │   ├── OutputPanel.jsx
+    │   └── ResizablePanel.jsx
+    │
+    ├── hooks/              # Custom React hooks
+    │   └── useCodeExecution.js
+    │
+    ├── services/           # Business logic services
+    │   ├── browserExecution.js  # JS/TS execution in browser
+    │   └── jdoodleService.js     # JDoodle API integration
+    │
+    ├── config/             # Configuration files
+    │   └── languages.js   # Language definitions and settings
+    │
+    └── utils/              # Utility functions and constants
+        └── constants.js
 ```
 
 ## How It Works
@@ -75,6 +96,7 @@ interview-app/
    - For JS/TS: Intercepts `console.log`, `console.error`, `console.warn`, and `console.info`
    - For JDoodle languages: Displays stdout, stderr, and execution statistics
 4. **Error Handling**: Catches and displays runtime errors, compilation errors, and API errors with clear messages
+5. **Layout**: Split-screen interface with three resizable panels (Question, Editor, Output) visible simultaneously
 
 ## Supported Languages
 
@@ -207,19 +229,20 @@ For a more secure implementation, consider:
 - Error recovery suggestions
 
 ### 3. Layout & UX Enhancements
-- Resizable panels (drag to adjust width)
+- ✅ Resizable panels (already implemented)
 - Multiple tabs for different code files
 - Code snippets/templates library
 - Dark/light theme toggle
 - Keyboard shortcuts (Cmd/Ctrl + Enter to run)
+- Panel collapse/expand functionality
 
 ### 4. Additional Features
 - Save/load code snippets
 - Share code via URL parameters
 - Code formatting (Prettier integration)
 - Import/export functionality
-- Support for multiple languages (TypeScript, Python, etc.)
 - Real-time collaboration
+- Code history/undo functionality
 
 ### 5. Performance
 - Lazy load Monaco Editor
@@ -233,4 +256,3 @@ MIT
 ## Support
 
 For issues or questions, please open an issue on the repository.
-
